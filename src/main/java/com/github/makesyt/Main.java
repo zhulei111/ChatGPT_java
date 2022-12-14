@@ -1,4 +1,4 @@
-package org.example;
+package com.github.makesyt;
 
 public class Main {
     public static void main(String[] args) {
