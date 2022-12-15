@@ -28,30 +28,49 @@ public class ChatGPT {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div[1]/button")));
         List<WebElement> list=driver.findElements(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div"));
         flag=true;
-        return driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div["+(list.size()-1)+"]/div/div[2]/div[1]/div/p")).getText();
+        List<WebElement> ps=driver.findElements(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div["+(list.size()-1)+"]/div/div[2]/div[1]/div/p"));
+        StringBuilder sb=new StringBuilder();
+        for (WebElement p : ps) {
+            sb.append(p.getText());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
-    public ChatGPT(String token,String cf_clearance,String __cf_bm,String hostToken){
+    public ChatGPT(){
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.14");
-        options.addArguments("--disable-blink-features=AutomationControlled");
+
+        options.setExperimentalOption("debuggerAddress", "127.0.0.1:9222");
 
         WebDriver driver = new EdgeDriver(options);
-
-        driver.get("https://chat.openai.com/");
-        Cookie cookie = new Cookie("__Secure-next-auth.session-token",token);
-        Cookie cookie1 =new Cookie("cf_clearance",cf_clearance);
-        Cookie cookie2 =new Cookie("__cf_bm",__cf_bm);
-        Cookie cookie3 =new Cookie("__Secure-next-auth.callback-url","https%3A%2F%2Fchat.openai.com");
-        Cookie cookie4 =new Cookie("__Host-next-auth.csrf-token",hostToken);
-        Cookie cookie5 =new Cookie("cf_chl_rc_m","1");
-        Cookie cookie6 =new Cookie("cf_chl_2","");
-        driver.manage().addCookie(cookie);
-        driver.manage().addCookie(cookie1);
-        driver.manage().addCookie(cookie2);
-        driver.manage().addCookie(cookie3);
-        driver.manage().addCookie(cookie4);
-        driver.manage().addCookie(cookie5);
-        driver.manage().addCookie(cookie6);
+        boolean isGPT=false;
+        //获取当前页面句柄
+        String handle = driver.getWindowHandle();
+        //获取所有句柄，循环判断是否等于当前句柄
+        for (String handles:driver.getWindowHandles()) {
+            if (handles.equals(handle))
+                continue;
+            driver.switchTo().window(handles);
+            if (driver.getTitle().equals("ChatGPT")){
+                isGPT=true;
+                break;
+            }
+        }
+        if (!isGPT)
+            driver.get("https://chat.openai.com/");
+//        Cookie cookie = new Cookie("__Secure-next-auth.session-token",token);
+//        Cookie cookie1 =new Cookie("cf_clearance",cf_clearance);
+//        Cookie cookie2 =new Cookie("__cf_bm",__cf_bm);
+//        Cookie cookie3 =new Cookie("__Secure-next-auth.callback-url","https%3A%2F%2Fchat.openai.com");
+//        Cookie cookie4 =new Cookie("__Host-next-auth.csrf-token",hostToken);
+//        Cookie cookie5 =new Cookie("cf_chl_rc_m","1");
+//        Cookie cookie6 =new Cookie("cf_chl_2","");
+//        driver.manage().addCookie(cookie);
+//        driver.manage().addCookie(cookie1);
+//        driver.manage().addCookie(cookie2);
+//        driver.manage().addCookie(cookie3);
+//        driver.manage().addCookie(cookie4);
+//        driver.manage().addCookie(cookie5);
+//        driver.manage().addCookie(cookie6);
         String title = driver.getTitle();
         System.out.printf(title);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(1));
@@ -89,8 +108,13 @@ public class ChatGPT {
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div[2]/textarea")));
 
             System.out.println("下一步骤");
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[2]/div/div/div/div[2]/div/div/div[2]/div[4]/button")));
-            driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[2]/div/div/div[2]/div[4]/button")).click();
+
+            try {
+                Thread.sleep(3000);
+                driver.findElement(By.xpath("/html/body/div[2]/div/div/div/div[2]/div/div/div[2]/div[4]/button")).click();
+            } catch (Exception e) {
+
+            }
             while (true){
                 try {
                     Thread.sleep(1000);
