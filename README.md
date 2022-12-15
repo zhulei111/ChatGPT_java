@@ -11,17 +11,30 @@ System.out.println(chatGPT.getRe("你是?"));
 
 # 使用
 1.将src源码文件夹加入项目  
-2.启动一个Edge浏览器并且已启用远程调试功能"--remote-debugging-port=9222",端口号不可更改  
-3.创建实体 
+2.添加库
+```Maven
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.7.1</version>
+        </dependency>
+```
+3.启动一个Edge浏览器并且已启用远程调试功能"--remote-debugging-port=9222",端口号不可更改  
+4.创建实体 
 ```Java
 ChatGPT chatGPT=new ChatGPT();
 ```
-4.查询实例是否正常工作
+5.查询实例是否正常工作
 ```Java
 ChatGPT chatGPT=new ChatGPT();
 chatGPT.getFlag()//ture为成功
 ```
-5.使用API
+6.使用API
 ```Java
 ChatGPT chatGPT=new ChatGPT();
 System.out.println(chatGPT.getRe("你的内容"));
