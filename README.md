@@ -1,5 +1,6 @@
 # ChatGPT_java
 基于selenium调用本地浏览器操作ChatGPT的API
+## 交流群692216254
 # 作用
 Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出
 # 效果
