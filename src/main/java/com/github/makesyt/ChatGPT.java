@@ -19,6 +19,7 @@ public class ChatGPT {
     }
 
     public String getRe(String question){
+        System.out.println("问题:"+question);
         if(!flag)
             return "ChatGPT异常/正在工作";
         driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div[2]/textarea")).sendKeys(question);
@@ -44,17 +45,24 @@ public class ChatGPT {
         WebDriver driver = new EdgeDriver(options);
         boolean isGPT=false;
         //获取当前页面句柄
-        String handle = driver.getWindowHandle();
-        //获取所有句柄，循环判断是否等于当前句柄
-        for (String handles:driver.getWindowHandles()) {
-            if (handles.equals(handle))
-                continue;
-            driver.switchTo().window(handles);
-            if (driver.getTitle().equals("ChatGPT")){
-                isGPT=true;
-                break;
+        if (driver.getTitle().equals("ChatGPT")){
+            isGPT=true;
+
+        }else{
+            String handle = driver.getWindowHandle();
+            for (String handles:driver.getWindowHandles()) {
+                if (handles.equals(handle))
+                    continue;
+                driver.switchTo().window(handles);
+                if (driver.getTitle().equals("ChatGPT")){
+                    isGPT=true;
+                    break;
+                }
             }
         }
+
+        //获取所有句柄，循环判断是否等于当前句柄
+
         if (!isGPT)
             driver.get("https://chat.openai.com/");
 //        Cookie cookie = new Cookie("__Secure-next-auth.session-token",token);
