@@ -6,9 +6,16 @@ Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出
 # 效果
 ```Java
 ChatGPT chatGPT=new ChatGPT();
-System.out.println(chatGPT.getRe("你是?"));
+File file=chatGPT.getRe("你的内容");//file即为回答截图
+//PS:你可以使用如下代码将File转写为文件 需要引入commons-io包
+File screenshotAs = webElement.getScreenshotAs(OutputType.FILE);
+File outfile = new File("image.png");
+try {
+    FileUtils.copyFile(screenshotAs, outfile);
+} catch (IOException e) {
+    return null;
+}
 ```
-![image](https://user-images.githubusercontent.com/42534870/207804158-ce1ab2cf-c091-4601-8ef4-4c9a08e58f9d.png)
 
 # 使用
 1.将src源码文件夹加入项目  
@@ -38,7 +45,7 @@ chatGPT.getFlag()//ture为成功
 6.使用API
 ```Java
 ChatGPT chatGPT=new ChatGPT();
-System.out.println(chatGPT.getRe("你的内容"));
+File file=chatGPT.getRe("你的内容");
 ```
 ## PS:  
 1.浏览器不会自动开启,但在Main提供了示例  
