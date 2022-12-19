@@ -7,9 +7,9 @@ Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出
 ```Java
 ChatGPT chatGPT=new ChatGPT();
 File file=chatGPT.getRe("用java在编写一个抽取1到1000中随机一个数并输出");//file即为回答截图
+```
 ![2XI2I3{7M@DZOE}D Z_NKJH](https://user-images.githubusercontent.com/42534870/208389990-d4e56228-c21a-475f-8496-d6ce20c74e1a.png)
 
-```
 
 # 使用
 1.将src源码文件夹加入项目  
