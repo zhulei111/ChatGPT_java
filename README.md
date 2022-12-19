@@ -8,10 +8,9 @@ Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出
 ChatGPT chatGPT=new ChatGPT();
 File file=chatGPT.getRe("你的内容");//file即为回答截图
 //PS:你可以使用如下代码将File转写为文件 需要引入commons-io包
-File screenshotAs = webElement.getScreenshotAs(OutputType.FILE);
 File outfile = new File("image.png");
 try {
-    FileUtils.copyFile(screenshotAs, outfile);
+    FileUtils.copyFile(file, outfile);
 } catch (IOException e) {
     return null;
 }
