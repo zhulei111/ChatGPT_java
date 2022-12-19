@@ -1,5 +1,7 @@
 package com.github.makesyt;
 
+import java.io.File;
+
 public class Main {
     public static void main(String[] args) {
 //        try {
@@ -11,6 +13,6 @@ public class Main {
 //            System.out.println("Error executing progarm.");
 //        }
         ChatGPT chatGPT=new ChatGPT();
-        System.out.println(chatGPT.getRe("你是?"));
+        File file=chatGPT.getRe("你是?");
     }
 }
