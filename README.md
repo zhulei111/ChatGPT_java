@@ -33,7 +33,7 @@ File file=chatGPT.getRe("用java在编写一个抽取1到1000中随机一个数�
 </properties>
 ```
 3. 启动一个Edge浏览器并且已启用远程调试功能"--remote-debugging-port=9222",端口号需与代码中的保持同步  
-   1.关闭 Microsoft Edge 的所有实例  （注意：检查任务管理器中是否残留edge的后台进程，如果有请结束，这是由于edge的启动增强功能导致的）
+   1.关闭 Microsoft Edge 的所有实例  （注意：检查任务管理器中是否残留edge的后台进程，如果有请结束，这是由于edge的启动增强功能导致的）  
    2.使用远程调试端口启动 Microsoft Edge。  
          ```
         msedge.exe --remote-debugging-port=9222
