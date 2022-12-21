@@ -26,6 +26,12 @@ File file=chatGPT.getRe("用java在编写一个抽取1到1000中随机一个数�
             <version>4.7.1</version>
         </dependency>
 ```
+### 注意:如果使用了springboot需要覆盖默认的坐标
+```Maven
+<properties>
+      <selenium.version>4.7.1</selenium.version>
+</properties>
+```
 3. 启动一个Edge浏览器并且已启用远程调试功能"--remote-debugging-port=9222",端口号不可更改  
    1.关闭 Microsoft Edge 的所有实例  
    2.使用远程调试端口启动 Microsoft Edge。  
