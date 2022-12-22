@@ -36,12 +36,14 @@ public class ChatGPT {
             if (count>=120){
                 break;
             }
-            if (driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div/button")).isEnabled()) {
+            try {
+                driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div/span"));
                 if (!tryTwice){
                     System.out.println("重试");
                     driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div/button")).click();//请求出现异常
                     tryTwice=true;
                 }else break;
+            } catch (Exception e) {
 
             }
             if (driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div[2]/button")).isEnabled()) {
