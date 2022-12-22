@@ -3,6 +3,7 @@
 ## 交流群[692216254](https://jq.qq.com/?_wv=1027&k=ZOdZbW11)
 # 作用
 Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出
+支持自动重试功能,续接上一次对话,使用现有页面
 # 效果
 ```Java
 ChatGPT chatGPT=new ChatGPT();
@@ -26,7 +27,7 @@ File file=chatGPT.getRe("用java在编写一个抽取1到1000中随机一个数�
             <version>4.7.1</version>
         </dependency>
 ```
-### 注意:如果使用了springboot需要覆盖默认的坐标
+#### 注意:如果使用了springboot需要覆盖默认的坐标
 ```Maven
 <properties>
       <selenium.version>4.7.1</selenium.version>
