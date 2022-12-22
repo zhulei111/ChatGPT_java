@@ -30,26 +30,37 @@ public class ChatGPT {
         driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div[2]/textarea")).sendKeys(Keys.ENTER);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(2));
         flag=false;
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div/div/div/main/div[2]/form/div/div[1]/button")));
+        int count = 0;
+        boolean tryTwice = false;
+        while(true){
+            if (count>=120){
+                break;
+            }
+            if (driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div/button")).isEnabled()) {
+                if (!tryTwice){
+                    System.out.println("重试");
+                    driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div/button")).click();//请求出现异常
+                    tryTwice=true;
+                }else break;
+
+            }
+            if (driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[2]/form/div/div[2]/button")).isEnabled()) {
+                break;
+            }
+            try {
+                Thread.sleep(1000);
+                count++;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
 
         List<WebElement> list=driver.findElements(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div"));
         flag=true;
-//        {
-//            List<WebElement> ps = driver.findElements(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div[" + (list.size() - 1) + "]/div/div[2]/div[1]/div/div/p"));
-//
-//            StringBuilder sb = new StringBuilder();
-//            for (WebElement p : ps) {
-//                if (p.getTagName().equals("p")) {
-//                    sb.append(p.getText());
-//                    sb.append("\n");
-//                } else {
-//
-//                }
-//
-//            }
-//        }
 
-        WebElement webElement= driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div[" + (list.size() - 1) + "]/div/div[2]/div[1]/div/div"));
+        WebElement webElement= driver.findElement(By.xpath("/html/body/div/div/div[1]/main/div[1]/div/div/div/div[" + (list.size() - 1) + "]/div/div[2]/div[1]"));
 
 
 
@@ -116,7 +127,7 @@ public class ChatGPT {
         WebDriver driver = new EdgeDriver(options);
         boolean isGPT=false;
         //获取当前页面句柄
-        if (driver.getTitle().equals("New Chat")){
+        if (driver.getCurrentUrl().contains("https://chat.openai.com/chat")){
             isGPT=true;
 
         }else{
@@ -125,7 +136,7 @@ public class ChatGPT {
                 if (handles.equals(handle))
                     continue;
                 driver.switchTo().window(handles);
-                if (driver.getTitle().equals("New Chat")){
+                if (driver.getCurrentUrl().contains("https://chat.openai.com/chat")){
                     isGPT=true;
                     break;
                 }
@@ -136,20 +147,6 @@ public class ChatGPT {
 
         if (!isGPT)
             driver.get("https://chat.openai.com/");
-//        Cookie cookie = new Cookie("__Secure-next-auth.session-token",token);
-//        Cookie cookie1 =new Cookie("cf_clearance",cf_clearance);
-//        Cookie cookie2 =new Cookie("__cf_bm",__cf_bm);
-//        Cookie cookie3 =new Cookie("__Secure-next-auth.callback-url","https%3A%2F%2Fchat.openai.com");
-//        Cookie cookie4 =new Cookie("__Host-next-auth.csrf-token",hostToken);
-//        Cookie cookie5 =new Cookie("cf_chl_rc_m","1");
-//        Cookie cookie6 =new Cookie("cf_chl_2","");
-//        driver.manage().addCookie(cookie);
-//        driver.manage().addCookie(cookie1);
-//        driver.manage().addCookie(cookie2);
-//        driver.manage().addCookie(cookie3);
-//        driver.manage().addCookie(cookie4);
-//        driver.manage().addCookie(cookie5);
-//        driver.manage().addCookie(cookie6);
         String title = driver.getTitle();
         System.out.printf(title);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(1));
