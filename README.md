@@ -2,7 +2,8 @@
 基于selenium调用本地浏览器操作ChatGPT的API
 ## 交流群[692216254](https://jq.qq.com/?_wv=1027&k=ZOdZbW11)
 # 作用
-Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出
+Java中只需要调用实例即可自动对ChatGPT的回答进行捕捉并输出  
+不会因为CF导致无法使用  
 支持自动重试功能,续接上一次对话,使用现有页面
 # 效果
 ```Java
@@ -34,11 +35,16 @@ File file=chatGPT.getRe("用java在编写一个抽取1到1000中随机一个数�
 </properties>
 ```
 3. 启动一个Edge浏览器并且已启用远程调试功能"--remote-debugging-port=9222",端口号需与代码中的保持同步  
-   1.关闭 Microsoft Edge 的所有实例  （注意：检查任务管理器中是否残留edge的后台进程，如果有请结束，这是由于edge的启动增强功能导致的）  
-   2.使用远程调试端口启动 Microsoft Edge。  
+   1. 关闭 Microsoft Edge 的所有实例  （注意：检查任务管理器中是否残留edge的后台进程，如果有请结束，这是由于edge的启动增强功能导致的）  
+   2. 使用远程调试端口启动 Microsoft Edge。  
          ```
         msedge.exe --remote-debugging-port=9222
         ```
+   3. 检测是否成功开启远程调试
+        1. 在浏览器中输入 ```edge://version/```
+        2. 检查命令行一栏是否有如下内容```--remote-debugging-port=9222```  
+           如有这表示启动成功,可以继续下面的步骤,否则重试3步骤
+   
 4. 创建实体 
 ```Java
 ChatGPT chatGPT=new ChatGPT();
@@ -64,5 +70,8 @@ try {
 1. 浏览器不会自动开启,但在Main提供了示例  
 2. 在创建示例的时候会自动查询浏览器的所有标签页来自动选择ChatGPT的页面,如果没有会自动打开ChatGPT的页面,可能需要手动完成验证和登录操作  
 3. 使用``` reload() ```函数可以重新加载页面  
+## 常见错误
+1. ```Exception in thread "main" org.openqa.selenium.SessionNotCreatedException: Could not start a new session. Response code 500. Message: unknown error: cannot connect to microsoft edge at 127.0.0.1:9222```  
+这是由于浏览器的远程调试没有成功导致的,请重新尝试3步骤
 # 声明  
 这不是官方的 OpenAI 产品。仅是个人项目，与 OpenAI 没有任何关联
